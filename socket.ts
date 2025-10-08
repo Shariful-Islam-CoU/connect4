@@ -5,6 +5,7 @@ import {io} from 'socket.io-client';
 const socket = io('https://connect4-vtzu.onrender.com',{
     autoConnect:true,
     transports: ['websocket'],
+    withCredentials:true,
     reconnectionAttempts: 5,
     reconnectionDelay: 1000,
     reconnectionDelayMax: 5000,
