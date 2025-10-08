@@ -1,7 +1,7 @@
 import {io} from 'socket.io-client';
 
-// const socket = io('http://192.168.88.30:6400',{
-const socket = io('https://connect4-server.onrender.com',{
+const socket = io('http://192.168.88.30:6400',{
+// const socket = io('https://connect4-server.onrender.com',{
     autoConnect:true,
     transports: ['websocket'],
     reconnectionAttempts: 5,
