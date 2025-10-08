@@ -6,6 +6,7 @@ import { Socket } from "socket.io-client";
 import userDataSchema from "../src/database/userSchema";
 import Room from "./room";
 import * as cors from "cors";
+import * as path from 'path';
 
 const app = (express as any)();
 const server = http.createServer(app);
@@ -28,6 +29,8 @@ app.use((cors as any)({
   methods: ["GET", "POST"],
   credentials: true
 }));
+
+
 
 
 
