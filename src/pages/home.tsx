@@ -59,7 +59,7 @@ socket.emit("active_me",{playerName:playerName})
 
 
   useEffect(() => {
-    fetch(`http://192.168.88.30:6400/playerAllInfo/${playerName}`,)
+    fetch(`https://connect4-vtzu.onrender.com/playerAllInfo/${playerName}`,)
       .then(response => response.json())
       .then(data => {
         console.log("AllData",data)
