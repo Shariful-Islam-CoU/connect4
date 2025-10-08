@@ -1,0 +1,52 @@
+version: "3.8"
+
+services:
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: qwerty
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  mongo-express:
+    image: mongo-express:latest
+    container_name: mongo-express
+    restart: always
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: admin
+      ME_CONFIG_MONGODB_ADMINPASSWORD: qwerty
+      ME_CONFIG_MONGODB_SERVER: mongo
+    ports:
+      - "8081:8081"
+    depends_on:
+      - mongo
+
+  server:
+    image: sharif778/connect4-server:latest
+    container_name: connect4-server
+    restart: always
+    environment:
+      MONGO_DB_USERNAME: admin
+      MONGO_DB_PASSWORD: qwerty
+      MONGO_DB_URL: mongodb://admin:qwerty@mongo:27017/
+    ports:
+      - "6400:6400"
+    depends_on:
+      - mongo
+
+  client:
+    image: sharif778/connect4-client:latest
+    container_name: connect4-client
+    restart: always
+    ports:
+      - "6300:6300"
+    depends_on:
+      - server
+
+volumes:
+  mongo-data: 

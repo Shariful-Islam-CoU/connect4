@@ -1,0 +1,42 @@
+{
+  "name": "connect-4",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+  "build:server": "tsc -p tsconfig.server.json",
+  "build:server:esbuild": "esbuild server/server.ts --bundle --platform=node --target=node20 --outfile=server/server.js",
+  "run:server:compiled": "tsc -p tsconfig.server.json && node server/server.js",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "http": "^0.0.1-security",
+    "mongoose": "^8.18.0",
+    "nodemon": "^3.1.10",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-router": "^7.8.2",
+    "react-router-dom": "^7.9.3",
+    "react-toastify": "^11.0.5",
+    "socket": "^1.0.107",
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.33.0",
+    "@types/express": "^5.0.3",
+    "@types/react": "^19.1.10",
+    "@types/react-dom": "^19.1.7",
+    "@vitejs/plugin-react": "^5.0.0",
+    "eslint": "^9.33.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "globals": "^16.3.0",
+    "typescript": "~5.8.3",
+    "typescript-eslint": "^8.39.1",
+    "vite": "^7.1.2"
+  }
+}

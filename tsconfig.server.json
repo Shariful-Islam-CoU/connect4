@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "noEmit": false,
+    "strict": false,
+    "verbatimModuleSyntax": false,
+    "resolveJsonModule": true,
+    "allowJs": false,
+    "outDir": "dist/server",
+    "rootDir": "server"
+  },
+  "include": [
+    "server/**/*",
+    "server.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "src",
+    "**/*.test.ts",
+    "**/*.spec.ts"
+  ]
+}
