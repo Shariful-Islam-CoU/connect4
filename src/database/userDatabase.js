@@ -38,11 +38,14 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var mongoose_1 = require("mongoose");
 main().catch(function (err) { return console.log(err); });
+// async function main() {
+//   await mongoose.connect('mongodb://admin:qwerty@mongo:27017/connect_4?authSource=admin').then(()=>console.log("db is connected"));
+// }
 function main() {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, mongoose_1.default.connect('mongodb://admin:qwerty@mongo:27017/connect_4?authSource=admin').then(function () { return console.log("db is connected"); })];
+                case 0: return [4 /*yield*/, mongoose_1.default.connect('mongodb+srv://sharifulislam666778_db_user:hhwCJTCukGJy1VDc@sharifmongodbcluster0.0ktphsd.mongodb.net/?retryWrites=true&w=majority&appName=SharifMongoDBCluster0').then(function () { return console.log("db is connected"); })];
                 case 1:
                     _a.sent();
                     return [2 /*return*/];
