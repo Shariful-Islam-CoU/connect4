@@ -56,10 +56,14 @@ var app = express();
 var server = http.createServer(app);
 var io = new socket_io_1.Server(server, {
     cors: {
+        // allow local/dev origins plus the deployed frontend
         origin: ["http://localhost:6300", "http://192.168.88.30:6300", "https://connect4-vtzu.onrender.com"],
         methods: ["GET", "POST"],
         credentials: true
     },
+    // allow both websocket and polling (server chooses best transport)
+    transports: ["websocket", "polling"],
+    pingTimeout: 60000
 });
 app.use(cors({
     origin: ["http://localhost:6300", "http://192.168.88.30:6300", "https://connect4-vtzu.onrender.com"],
@@ -783,8 +787,9 @@ io.on("connection", function (socket) { return __awaiter(void 0, void 0, void 0,
         return [2 /*return*/];
     });
 }); });
-server.listen(6400, function () {
-    console.log("✅ Server running on http://192.168.88.30:6400");
+var PORT = process.env.PORT ? Number(process.env.PORT) : 6400;
+server.listen(PORT, function () {
+    console.log("\u2705 Server running on port ".concat(PORT));
 });
 var check_result = function (row, col, value, board) {
     var resultCells = [];

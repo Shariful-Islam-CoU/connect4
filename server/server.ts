@@ -11,11 +11,12 @@ const app = (express as any)();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    // origin: ["http://localhost:6300", "http://192.168.88.30:6300","https://connect4-vtzu.onrender.com"],
-    origin: ["https://connect4-vtzu.onrender.com"],
+    // allow local/dev origins plus the deployed frontend
+    origin: ["http://localhost:6300", "http://192.168.88.30:6300", "https://connect4-vtzu.onrender.com"],
     methods: ["GET", "POST"],
     credentials: true
   },
+  // allow both websocket and polling (server chooses best transport)
   transports: ["websocket", "polling"],
   pingTimeout: 60000
 });
@@ -23,8 +24,7 @@ const io = new Server(server, {
 
 
 app.use((cors as any)({
-  // origin: ["http://localhost:6300", "http://192.168.88.30:6300","https://connect4-vtzu.onrender.com"],
-  origin: ["https://connect4-vtzu.onrender.com"],
+  origin: ["http://localhost:6300", "http://192.168.88.30:6300", "https://connect4-vtzu.onrender.com"],
   methods: ["GET", "POST"],
   credentials: true
 }));
@@ -820,8 +820,9 @@ io.on("connection", async (socket) => {
 });
 
 
-server.listen(6400, () => {
- console.log("✅ Server running on http://192.168.88.30:6400");
+const PORT = process.env.PORT ? Number(process.env.PORT) : 6400;
+server.listen(PORT, () => {
+  console.log(`✅ Server running on port ${PORT}`);
 });
 
 
