@@ -823,7 +823,7 @@ io.on("connection", async (socket) => {
 });
 
 
-const PORT = process.env.PORT ? Number(process.env.PORT) : 6400;
+const PORT = process.env.MYPORT ? Number(process.env.MYPORT) : 6400;
 server.listen(PORT, () => {
   console.log(`✅ Server running on port ${PORT}`);
 });
