@@ -5,7 +5,7 @@ import {io} from 'socket.io-client';
 const socket = io('https://connect4-vtzu.onrender.com',{
         autoConnect: true,
         // allow polling as a fallback when websockets are blocked by the host
-        transports: ['websocket', 'polling'],
+        transports: ['polling','websocket'],
         withCredentials: true,
         reconnectionAttempts: 5,
         reconnectionDelay: 1000,
@@ -24,6 +24,8 @@ socket.on('connect_error', (err) => {
 socket.on('connect', () => {
     console.info('Socket connected:', socket.id);
 });
+socket.on('reconnect_attempt', () => console.info('reconnect_attempt'));
+socket.on('close', (reason) => console.info('socket closed', reason));
 
 export default socket;
 
