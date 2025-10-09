@@ -59,7 +59,9 @@ socket.emit("active_me",{playerName:playerName})
 
 
   useEffect(() => {
-    fetch(`https://connect4-1-dfxu.onrender.com/playerAllInfo/${playerName}`,)
+    const API_BASE = (import.meta && (import.meta as any).env && (import.meta as any).env.DEV) ? '' : 'https://connect4-1-dfxu.onrender.com';
+    console.log("API_BASE",API_BASE)
+    fetch(`${API_BASE}/playerAllInfo/${playerName}`)
       .then(response => response.json())
       .then(data => {
         console.log("AllData",data)

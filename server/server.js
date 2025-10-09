@@ -72,6 +72,16 @@ app.use(cors({
 // Serve built client (Vite output) when present
 var staticPath = path.join(__dirname, '..', 'client', 'dist');
 app.use(express.static(staticPath));
+// Log incoming requests to socket.io endpoints to help diagnose polling/ws issues
+app.use(function (req, res, next) {
+    try {
+        if (req.path && req.path.startsWith('/socket.io')) {
+            console.log('[SOCKET.IO REQUEST]', req.method, req.originalUrl || req.url, 'headers:', req.headers && { origin: req.headers.origin, 'user-agent': req.headers['user-agent'] });
+        }
+    }
+    catch (e) { /* ignore logging errors */ }
+    next();
+});
 // SPA fallback — serve index.html for non-api/socket routes
 // Use middleware instead of a route with '*' to avoid path-to-regexp issues on some platforms
 app.use(function (req, res, next) {
@@ -85,6 +95,12 @@ app.use(function (req, res, next) {
     }
     next();
 });
+// Log engine-level connection errors for Socket.IO
+if (io.engine && typeof io.engine.on === 'function') {
+    io.engine.on('connection_error', function (err) {
+        console.error('Socket.IO engine connection_error:', err);
+    });
+}
 var waiting_players = [];
 var playAgainWaiting = new Map();
 var time_up_check = new Map();
@@ -802,7 +818,7 @@ io.on("connection", function (socket) { return __awaiter(void 0, void 0, void 0,
         return [2 /*return*/];
     });
 }); });
-var PORT = process.env.MYPORT ? Number(process.env.MYPORT) : 6400;
+var PORT = process.env.PORT ? Number(process.env.PORT) : (process.env.MYPORT ? Number(process.env.MYPORT) : 6400);
 server.listen(PORT, function () {
     console.log("\u2705 Server running on port ".concat(PORT));
 });

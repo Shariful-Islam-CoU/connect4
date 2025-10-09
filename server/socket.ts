@@ -1,11 +1,9 @@
 import {io} from 'socket.io-client';
 
 
-// const socket = io('https://connect4-server.onrender.com',{
-
-// const socket = io('https://connect4-vtzu.onrender.com',{
-// const socket = io('http://192.168.88.30:6400',{
-const SOCKET_URL = "https://connect4-1-dfxu.onrender.com"
+// In development use localhost; in production use same-origin (undefined) so the client
+// connects back to the page origin (this avoids hard-coded domains).
+const SOCKET_URL = (import.meta && (import.meta as any).env && (import.meta as any).env.DEV) ? 'http://localhost:6400' : undefined;
 
 const socket = io(SOCKET_URL,{
         autoConnect: true,

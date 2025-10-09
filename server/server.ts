@@ -31,6 +31,15 @@ app.use((cors as any)({
 // Serve built client (Vite output) when present
 const staticPath = path.join(__dirname, '..', 'client', 'dist');
 app.use(express.static(staticPath));
+// Log incoming requests to socket.io endpoints to help diagnose polling/ws issues
+app.use((req:any, res:any, next:any) => {
+  try{
+    if (req.path && req.path.startsWith('/socket.io')) {
+      console.log('[SOCKET.IO REQUEST]', req.method, req.originalUrl || req.url, 'headers:', req.headers && {origin: req.headers.origin, 'user-agent': req.headers['user-agent']});
+    }
+  }catch(e){/* ignore logging errors */}
+  next();
+});
 // SPA fallback — serve index.html for non-api/socket routes
 // Use middleware instead of a route with '*' to avoid path-to-regexp issues on some platforms
 app.use((req: any, res: any, next: any) => {
@@ -44,6 +53,13 @@ app.use((req: any, res: any, next: any) => {
   }
   next();
 });
+
+// Log engine-level connection errors for Socket.IO
+if ((io as any).engine && typeof (io as any).engine.on === 'function') {
+  (io as any).engine.on('connection_error', (err: any) => {
+    console.error('Socket.IO engine connection_error:', err);
+  });
+}
 
 
 
@@ -838,7 +854,7 @@ io.on("connection", async (socket) => {
 });
 
 
-const PORT = process.env.MYPORT ? Number(process.env.MYPORT) : 6400;
+const PORT = process.env.PORT ? Number(process.env.PORT) : (process.env.MYPORT ? Number(process.env.MYPORT) : 6400);
 server.listen(PORT, () => {
   console.log(`✅ Server running on port ${PORT}`);
 });
