@@ -52,6 +52,7 @@ var http = require("http");
 var socket_io_1 = require("socket.io");
 var userDataModel_1 = require("./database/userDataModel");
 var cors = require("cors");
+var path = require("path");
 var app = express();
 var server = http.createServer(app);
 var io = new socket_io_1.Server(server, {
@@ -68,6 +69,22 @@ app.use(cors({
     methods: ["GET", "POST"],
     credentials: true
 }));
+// Serve built client (Vite output) when present
+var staticPath = path.join(__dirname, '..', 'client', 'dist');
+app.use(express.static(staticPath));
+// SPA fallback — serve index.html for non-api/socket routes
+// Use middleware instead of a route with '*' to avoid path-to-regexp issues on some platforms
+app.use(function (req, res, next) {
+    // Allow socket.io engine and API requests to pass through to their handlers
+    if (req.path && (req.path.startsWith('/socket.io') || req.path.startsWith('/api') || req.path.startsWith('/playerAllInfo'))) {
+        return next();
+    }
+    // Serve index.html for other GET requests (SPA fallback)
+    if (req.method === 'GET') {
+        return res.sendFile(path.join(staticPath, 'index.html'));
+    }
+    next();
+});
 var waiting_players = [];
 var playAgainWaiting = new Map();
 var time_up_check = new Map();

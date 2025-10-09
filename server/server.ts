@@ -32,9 +32,17 @@ app.use((cors as any)({
 const staticPath = path.join(__dirname, '..', 'client', 'dist');
 app.use(express.static(staticPath));
 // SPA fallback — serve index.html for non-api/socket routes
-app.get('*', (req: any, res: any, next: any) => {
-  if (req.path && req.path.startsWith('/socket.io')) return next();
-  res.sendFile(path.join(staticPath, 'index.html'));
+// Use middleware instead of a route with '*' to avoid path-to-regexp issues on some platforms
+app.use((req: any, res: any, next: any) => {
+  // Allow socket.io engine and API requests to pass through to their handlers
+  if (req.path && (req.path.startsWith('/socket.io') || req.path.startsWith('/api') || req.path.startsWith('/playerAllInfo'))) {
+    return next();
+  }
+  // Serve index.html for other GET requests (SPA fallback)
+  if (req.method === 'GET') {
+    return res.sendFile(path.join(staticPath, 'index.html'));
+  }
+  next();
 });
 
 
