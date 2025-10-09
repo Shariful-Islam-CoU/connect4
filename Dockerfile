@@ -14,4 +14,4 @@ WORKDIR /Connect_4
 
 EXPOSE 6300 6400
 
-CMD ["sh", "-c", "npm run dev & node server/server.js"]
+CMD ["sh", "-c", "npm run build & npm run start & npm run dev"]
