@@ -1,9 +1,8 @@
 import {io} from 'socket.io-client';
 
 
-// In development use localhost; in production use same-origin (undefined) so the client
-// connects back to the page origin (this avoids hard-coded domains).
-const SOCKET_URL = (import.meta && (import.meta as any).env && (import.meta as any).env.DEV) ? 'http://localhost:6400' : undefined;
+
+const SOCKET_URL = (import.meta && (import.meta as any).env && (import.meta as any).env.DEV) ? 'https://connect4-1-dfxu.onrender.com' : undefined;
 
 const socket = io(SOCKET_URL,{
         autoConnect: true,
