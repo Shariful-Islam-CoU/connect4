@@ -3,9 +3,8 @@ import {io} from 'socket.io-client';
 
 // In development we connect to the local server. In production we'll use the
 // page origin (same-origin) so no hard-coded host is necessary.
-const SOCKET_URL = (import.meta && (import.meta as any).env && (import.meta as any).env.DEV) ? 'http://localhost:6400' : undefined;
 
-const socket = io(SOCKET_URL,{
+const socket = io('https://connect4-1-dfxu.onrender.com',{
     autoConnect: true,
     // allow polling fallback then websocket; order doesn't matter much
     transports: ['polling','websocket'],
