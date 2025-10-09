@@ -2,9 +2,8 @@ import {io} from 'socket.io-client';
 
 
 
-const SOCKET_URL = (import.meta && (import.meta as any).env && (import.meta as any).env.DEV) ? 'https://connect4-1-dfxu.onrender.com' : undefined;
 
-const socket = io(SOCKET_URL,{
+const socket = io('https://connect4-1-dfxu.onrender.com',{
         autoConnect: true,
         transports: ['polling','websocket'],
         withCredentials: true,
