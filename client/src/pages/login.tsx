@@ -6,8 +6,7 @@ import Signup from './signup.tsx';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import socket from '../../socket.ts';
-
+import socket from '../../../server/socket.ts';
 
 
 const Login = () => {

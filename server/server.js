@@ -50,23 +50,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express = require("express");
 var http = require("http");
 var socket_io_1 = require("socket.io");
-var userDataModel_1 = require("../src/database/userDataModel");
+var userDataModel_1 = require("./database/userDataModel");
 var cors = require("cors");
 var app = express();
 var server = http.createServer(app);
 var io = new socket_io_1.Server(server, {
     cors: {
-        // allow local/dev origins plus the deployed frontend
-        origin: ["http://localhost:6300", "http://192.168.88.30:6300", "https://connect4-vtzu.onrender.com"],
+        origin: ["http://localhost:6300", "http://192.168.88.30:6300"],
         methods: ["GET", "POST"],
         credentials: true
     },
-    // allow both websocket and polling (server chooses best transport)
     transports: ["websocket", "polling"],
     pingTimeout: 60000
 });
 app.use(cors({
-    origin: ["http://localhost:6300", "http://192.168.88.30:6300", "https://connect4-vtzu.onrender.com"],
+    origin: ["http://localhost:6300", "http://192.168.88.30:6300"],
     methods: ["GET", "POST"],
     credentials: true
 }));

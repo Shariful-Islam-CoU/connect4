@@ -5,10 +5,10 @@
   "scripts": {
     "dev": "vite",
     "start": "node server/server.js",
-    "build:server": "tsc -p tsconfig.server.json",
-    "build:server:esbuild": "esbuild server/server.ts --bundle --platform=node --target=node20 --outfile=server/server.js",
-    "run:server:compiled": "tsc -p tsconfig.server.json && node server/server.js",
-    "build": "tsc -b && vite build",
+    "build:server": "cd server && npm run build",
+    "build:client": "cd client && npm run build",
+    "build": "npm run build:server && npm run build:client",
+    "install:all": "npm install && cd client && npm install && cd ../server && npm install",
     "lint": "eslint .",
     "preview": "vite preview"
   },

@@ -6,7 +6,7 @@ import Login from '../src/pages/login.tsx';
 import Signup from '../src/pages/signup.tsx';
 import Game from '../src/pages/game.tsx';
 import Home from '../src/pages/home.tsx';
-import socket from '../socket.ts';
+import socket from '../../server/socket.ts';
 
 function App() {
 

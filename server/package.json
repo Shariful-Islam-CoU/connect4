@@ -1,0 +1,21 @@
+{
+  "name": "connect4-server",
+  "version": "0.0.0",
+  "private": true,
+  "main": "server.js",
+  "scripts": {
+    "build": "tsc -p ../tsconfig.server.json",
+    "start": "node server.js",
+    "dev": "tsc -w -p ../tsconfig.server.json"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "mongoose": "^8.18.0",
+    "socket.io": "^4.8.1",
+    "dotenv": "^17.2.3"
+  },
+  "devDependencies": {
+    "typescript": "~5.8.3",
+    "@types/express": "^5.0.3"
+  }
+}

@@ -1,6 +1,6 @@
 import { useEffect,useState } from 'react';
 import '../css/game.css';
-import socket from '../../socket';
+import socket from '../../../server/socket.ts';
 import { ToastContainer, toast } from 'react-toastify';
 import AlertDialog from '../header/alertDialog';
 import AlertDialog2 from '../header/alertDialog2';

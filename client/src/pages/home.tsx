@@ -1,7 +1,7 @@
 import { Link,useNavigate } from 'react-router-dom';
 import '../css/home.css';
 import { useEffect, useRef, useState } from 'react';
-import socket from '../../socket';
+import socket from '../../../server/socket.ts';
 import { ToastContainer, toast } from 'react-toastify';
 import { set } from 'mongoose';
 var waitTimer = null;

@@ -1,9 +1,9 @@
 import * as express from "express";
 import * as http from "http";
 import { Server } from "socket.io";
-import UserDataModel from "../src/database/userDataModel";
+import UserDataModel from "./database/userDataModel";
 import { Socket } from "socket.io-client";
-import userDataSchema from "../src/database/userSchema";
+import userDataSchema from "./database/userSchema";
 import Room from "./room";
 import * as cors from "cors";
 import * as path from 'path';
@@ -27,6 +27,15 @@ app.use((cors as any)({
   methods: ["GET", "POST"],
   credentials: true
 }));
+
+// Serve built client (Vite output) when present
+const staticPath = path.join(__dirname, '..', 'client', 'dist');
+app.use(express.static(staticPath));
+// SPA fallback — serve index.html for non-api/socket routes
+app.get('*', (req: any, res: any, next: any) => {
+  if (req.path && req.path.startsWith('/socket.io')) return next();
+  res.sendFile(path.join(staticPath, 'index.html'));
+});
 
 
 
