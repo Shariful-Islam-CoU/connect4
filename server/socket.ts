@@ -4,7 +4,10 @@ import {io} from 'socket.io-client';
 // const socket = io('https://connect4-server.onrender.com',{
 
 // const socket = io('https://connect4-vtzu.onrender.com',{
-const socket = io('http://192.168.88.30:6400',{
+// const socket = io('http://192.168.88.30:6400',{
+const SOCKET_URL = "https://connect4-1-dfxu.onrender.com"
+
+const socket = io(SOCKET_URL,{
         autoConnect: true,
         transports: ['polling','websocket'],
         withCredentials: true,
