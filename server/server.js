@@ -787,7 +787,7 @@ io.on("connection", function (socket) { return __awaiter(void 0, void 0, void 0,
         return [2 /*return*/];
     });
 }); });
-var PORT = process.env.PORT ? Number(process.env.PORT) : 6400;
+var PORT = process.env.MYPORT ? Number(process.env.MYPORT) : 6400;
 server.listen(PORT, function () {
     console.log("\u2705 Server running on port ".concat(PORT));
 });

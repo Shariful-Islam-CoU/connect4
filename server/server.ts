@@ -12,12 +12,10 @@ const app = (express as any)();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    // allow local/dev origins plus the deployed frontend
-    origin: ["http://localhost:6300", "http://192.168.88.30:6300", "https://connect4-vtzu.onrender.com"],
+    origin: ["http://localhost:6300", "http://192.168.88.30:6300"],
     methods: ["GET", "POST"],
     credentials: true
   },
-  // allow both websocket and polling (server chooses best transport)
   transports: ["websocket", "polling"],
   pingTimeout: 60000
 });
@@ -25,7 +23,7 @@ const io = new Server(server, {
 
 
 app.use((cors as any)({
-  origin: ["http://localhost:6300", "http://192.168.88.30:6300", "https://connect4-vtzu.onrender.com"],
+  origin: ["http://localhost:6300", "http://192.168.88.30:6300"],
   methods: ["GET", "POST"],
   credentials: true
 }));
